@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Confirm Delete</title>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo">
+      <h2>Library System</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Dashboard</a></li>
+      {% if book.book_type == 'TECH' %}
+      <li class="active"><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li><a href="{% url 'novel_books' %}">Novel Books</a></li>
+      {% else %}
+      <li><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li class="active"><a href="{% url 'novel_books' %}">Novel Books</a></li>
+      {% endif %}
+      <li><a href="{% url 'show_books' %}">All Books</a></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <header class="top-bar">
+      <h1>Delete "{{ book.name }}"</h1>
+    </header>
+    <div class="form-container">
+      <p>Are you sure you want to delete this book?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+      </form>
+      <a href="{% if book.book_type == 'TECH' %}{% url 'tech_books' %}{% else %}{% url 'novel_books' %}{% endif %}">Cancel</a>
+    </div>
+  </main>
+</body>
+</html>

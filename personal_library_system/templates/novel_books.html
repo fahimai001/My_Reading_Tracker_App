@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Novel Books</title>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo">
+      <h2>Library System</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Dashboard</a></li>
+      <li><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li class="active"><a href="{% url 'novel_books' %}">Novel Books</a></li>
+      <li><a href="{% url 'show_books' %}">All Books</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <h1>Novel Books</h1>
+    </header>
+
+    <div class="novel-book-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Book Name</th>
+            <th>Date Added</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+          <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.name }}</td>
+            <td>{{ book.date_added }}</td>
+            <td><span class="status-badge {{ book.status }}">{{ book.get_status_display }}</span></td>
+            <td>
+              <a href="{% url 'edit_book' book.id %}" class="btn-edit">Edit</a>
+              <a href="{% url 'delete_book' book.id %}" class="btn-delete">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr class="add-book-row">
+            <td colspan="5" style="text-align: center;">
+              <a href="{% url 'add_novel_book' %}" class="add-book-btn">➕ Add New Book</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</body>
+</html>

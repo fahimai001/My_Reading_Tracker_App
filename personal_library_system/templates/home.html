@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Personal Library System</title>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo">
+      <h2>Library System</h2>
+    </div>
+    <ul class="nav-links">
+      <li class="active"><a href="{% url 'home' %}">Dashboard</a></li>
+      <li><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li><a href="{% url 'novel_books' %}">Novel Books</a></li>
+      <li><a href="{% url 'show_books' %}">All Books</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <h1>Welcome Reading Journal</h1>
+    </header>
+
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <span class="stat-icon">📖</span>
+        <div class="stat-info">
+          <h3>Reading Now</h3>
+          <p>{{ reading_count }} Books</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">✓</span>
+        <div class="stat-info">
+          <h3>Completed</h3>
+          <p>{{ completed_count }} Books</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📚</span>
+        <div class="stat-info">
+          <h3>Total Books</h3>
+          <p>{{ total_books }} Books</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-access">
+      <h2>Quick Access</h2>
+      <div class="quick-cards">
+        <a href="{% url 'tech_books' %}" class="quick-card tech">
+          <h3>Tech Books</h3>
+          <p>{{ tech_count }} Books</p>
+        </a>
+        <a href="{% url 'novel_books' %}" class="quick-card novel">
+          <h3>Novel Books</h3>
+          <p>{{ novel_count }} Books</p>
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

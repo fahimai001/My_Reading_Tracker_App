@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>All Books</title>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo">
+      <h2>Library System</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Dashboard</a></li>
+      <li><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li><a href="{% url 'novel_books' %}">Novel Books</a></li>
+      <li class="active"><a href="{% url 'show_books' %}">All Books</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <h1>All Books</h1>
+    </header>
+
+    <div class="status-filter">
+      <a href="{% url 'show_books' %}?status=all" class="filter-btn {% if filter_status == 'all' %}active{% endif %}">All</a>
+      <a href="{% url 'show_books' %}?status=reading" class="filter-btn {% if filter_status == 'reading' %}active{% endif %}">Reading</a>
+      <a href="{% url 'show_books' %}?status=completed" class="filter-btn {% if filter_status == 'completed' %}active{% endif %}">Completed</a>
+      <a href="{% url 'show_books' %}?status=not-started" class="filter-btn {% if filter_status == 'not-started' %}active{% endif %}">Not Started</a>
+    </div>
+
+    <div class="books-container">
+      {% for book in books %}
+      <div class="book-item">
+        <div class="book-cover {% if book.book_type == 'TECH' %}tech{% else %}novel{% endif %}">
+          <span class="book-emoji">{% if book.book_type == 'TECH' %}📗{% else %}📕{% endif %}</span>
+        </div>
+        <div class="book-details">
+          <h3>{{ book.name }}</h3>
+          <p class="book-type">{% if book.book_type == 'TECH' %}Tech Book{% else %}Novel Book{% endif %}</p>
+          <p class="book-date">Added: {{ book.date_added }}</p>
+          <span class="status-badge {{ book.status }}">{{ book.get_status_display }}</span>
+        </div>
+      </div>
+      {% empty %}
+      <p>No books found.</p>
+      {% endfor %}
+    </div>
+  </main>
+</body>
+</html>
