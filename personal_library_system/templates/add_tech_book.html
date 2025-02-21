@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'style.css' %}">
-  <title>Add New Book</title>
+  <title>Add New Tech Book</title>
 </head>
 <body>
   <nav class="sidebar">
@@ -14,7 +14,7 @@
     </div>
     <ul class="nav-links">
       <li><a href="{% url 'home' %}">Dashboard</a></li>
-      <li><a href="{% url 'tech_books' %}">Tech Books</a></li>
+      <li class="active"><a href="{% url 'tech_books' %}">Tech Books</a></li>
       <li><a href="{% url 'novel_books' %}">Novel Books</a></li>
       <li><a href="{% url 'show_books' %}">All Books</a></li>
     </ul>
@@ -22,26 +22,31 @@
 
   <main class="main-content">
     <header class="top-bar">
-      <h1>Add New Book</h1>
+      <h1>Add New Tech Book</h1>
     </header>
+
     <div class="add-book-container">
-      <form method="POST" class="add-book-form">
+      <form class="add-book-form" method="POST" action="{% url 'add_tech_book' %}">
         {% csrf_token %}
         <div class="form-group">
-          <label for="id_name">Book Name</label>
-          {{ form.name }}
+          <label for="book-name">Book Name</label>
+          <input type="text" id="book-name" name="book_name" placeholder="Enter book name" required>
         </div>
         <div class="form-group">
-          <label for="id_date_added">Date Added</label>
-          {{ form.date_added }}
+          <label for="date-added">Date Added</label>
+          <input type="date" id="date-added" name="date_added" required>
         </div>
         <div class="form-group">
-          <label for="id_status">Status</label>
-          {{ form.status }}
+          <label for="status">Status</label>
+          <select id="status" name="status" required>
+            <option value="not-started">Not Started</option>
+            <option value="reading">Reading</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
         <div class="form-group">
-          <label for="id_book_type">Book Type</label>
-          {{ form.book_type }}
+          <label for="book-type">Book Type</label>
+          <input type="text" id="book-type" name="book_type" placeholder="Enter book type" required>
         </div>
         <button type="submit" class="btn-add-book">Add Book</button>
       </form>

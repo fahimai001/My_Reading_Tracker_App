@@ -31,7 +31,6 @@ def show_books(request):
     else:
         books = Book.objects.all()
 
-    # Optional: provide counts for the filter summary
     reading_count = Book.objects.filter(status='reading').count()
     completed_count = Book.objects.filter(status='completed').count()
     not_started_count = Book.objects.filter(status='not-started').count()
@@ -49,7 +48,7 @@ def add_tech_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
-            book.book_type = 'TECH'  # force Tech Book
+            book.book_type = 'TECH' 
             book.save()
             return redirect('tech_books')
     else:
@@ -61,7 +60,7 @@ def add_novel_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit=False)
-            book.book_type = 'NOVEL'  # force Noval Book
+            book.book_type = 'NOVEL' 
             book.save()
             return redirect('novel_books')
     else:
@@ -74,7 +73,7 @@ def edit_book(request, book_id):
         form = UpdateStatusForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            # Redirect back to the appropriate page based on book type.
+            
             if book.book_type == 'TECH':
                 return redirect('tech_books')
             elif book.book_type == 'NOVEL':
@@ -91,3 +90,10 @@ def delete_book(request, book_id):
         book.delete()
         return redirect('home')
     return render(request, 'confirm_delete.html', {'book': book})
+
+def add_book(request):
+    form = BookForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('show_books')
+    return render(request, 'add_book.html', {'form': form})
