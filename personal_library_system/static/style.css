@@ -514,6 +514,21 @@ body {
     font-weight: 500;
 }
 
+
+.novel-book-table .add-book-row .add-book-btn {
+    display: inline-block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #3498db;
+    border: 2px dashed #3498db;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+
 .tech-book-table .add-book-row .add-book-btn:hover {
     background-color: #eaf7ea;
 }
@@ -624,3 +639,5 @@ body {
     background-color: #27ae60;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
+
+
